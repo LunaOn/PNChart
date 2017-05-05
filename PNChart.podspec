@@ -16,7 +16,7 @@ Pod::Spec.new do |s|
   #
 
   s.name         = "PNChart"
-  s.version      = "0.8.9"
+  s.version      = "0.8.9.1"
   s.summary      = "A simple and beautiful chart lib with animation used in Piner for iOS"
 
   s.description  = <<-DESC
@@ -43,7 +43,7 @@ Pod::Spec.new do |s|
 
                    DESC
 
-  s.homepage     = "https://github.com/kevinzhow/PNChart"
+  s.homepage     = "https://github.com/LunaOn/PNChart.git"
   s.screenshots  = "https://camo.githubusercontent.com/e99c1bbab103c63efd561c4997a4bedb878bb2a2/68747470733a2f2f646c2e64726f70626f7875736572636f6e74656e742e636f6d2f752f313539393636322f706e63686172742e676966"
 
   # ―――  Spec License  ――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
@@ -90,7 +90,7 @@ Pod::Spec.new do |s|
   #  Supports git, hg, bzr, svn and HTTP.
   #
 
-  s.source       = { :git => "https://github.com/kevinzhow/PNChart.git", :tag => s.version }
+  s.source       = { :git => "https://github.com/LunaOn/PNChart.git", :tag => s.version }
 
 
   # ――― Source Code ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
