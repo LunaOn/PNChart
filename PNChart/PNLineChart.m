@@ -71,23 +71,23 @@
     }
 
     if (yStep == 0.0) {
-        PNChartLabel *minLabel = [[PNChartLabel alloc] initWithFrame:CGRectMake(0.0, (NSInteger) _chartCavanHeight, (NSInteger) _chartMarginBottom, (NSInteger) _yLabelHeight)];
-        minLabel.text = [self formatYLabel:0.0];
-        [self setCustomStyleForYLabel:minLabel];
-        [self addSubview:minLabel];
-        [_yChartLabels addObject:minLabel];
+//        PNChartLabel *minLabel = [[PNChartLabel alloc] initWithFrame:CGRectMake(0.0, (NSInteger) _chartCavanHeight, (NSInteger) _chartMarginBottom, (NSInteger) _yLabelHeight)];
+//        minLabel.text = [self formatYLabel:0.0];
+//        [self setCustomStyleForYLabel:minLabel];
+//        [self addSubview:minLabel];
+//        [_yChartLabels addObject:minLabel];
 
-        PNChartLabel *midLabel = [[PNChartLabel alloc] initWithFrame:CGRectMake(0.0, (NSInteger) (_chartCavanHeight / 2), (NSInteger) _chartMarginBottom, (NSInteger) _yLabelHeight)];
+        PNChartLabel *midLabel = [[PNChartLabel alloc] initWithFrame:CGRectMake(0.0, (NSInteger) (_chartCavanHeight / 1.68), (NSInteger) _chartMarginBottom, (NSInteger) _yLabelHeight)];
         midLabel.text = [self formatYLabel:_yValueMax];
         [self setCustomStyleForYLabel:midLabel];
         [self addSubview:midLabel];
         [_yChartLabels addObject:midLabel];
 
-        PNChartLabel *maxLabel = [[PNChartLabel alloc] initWithFrame:CGRectMake(0.0, 0.0, (NSInteger) _chartMarginBottom, (NSInteger) _yLabelHeight)];
-        maxLabel.text = [self formatYLabel:_yValueMax * 2];
-        [self setCustomStyleForYLabel:maxLabel];
-        [self addSubview:maxLabel];
-        [_yChartLabels addObject:maxLabel];
+//        PNChartLabel *maxLabel = [[PNChartLabel alloc] initWithFrame:CGRectMake(0.0, 0.0, (NSInteger) _chartMarginBottom, (NSInteger) _yLabelHeight)];
+//        maxLabel.text = [self formatYLabel:_yValueMax * 2];
+//        [self setCustomStyleForYLabel:maxLabel];
+//        [self addSubview:maxLabel];
+//        [_yChartLabels addObject:maxLabel];
 
     } else {
         NSInteger index = 0;
