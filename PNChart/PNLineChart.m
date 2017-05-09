@@ -247,30 +247,31 @@
     // Get the point user touched
     UITouch *touch = [touches anyObject];
     CGPoint touchPoint = [touch locationInView:self];
-
-    for (NSUInteger p = 0; p < _pathPoints.count; p++) {
-        NSArray *linePointsArray = _endPointsOfPath[p];
-
-        for (NSUInteger i = 0; i < (int) linePointsArray.count - 1; i += 2) {
-            CGPoint p1 = [linePointsArray[i] CGPointValue];
-            CGPoint p2 = [linePointsArray[i + 1] CGPointValue];
-
-            // Closest distance from point to line
-            float distance = (float) fabs(((p2.x - p1.x) * (touchPoint.y - p1.y)) - ((p1.x - touchPoint.x) * (p1.y - p2.y)));
-            distance /= hypot(p2.x - p1.x, p1.y - p2.y);
-
-            if (distance <= 5.0) {
-                // Conform to delegate parameters, figure out what bezier path this CGPoint belongs to.
-                NSUInteger lineIndex = 0;
-                for (NSArray<UIBezierPath *> *paths in _chartPath) {
-                    for (UIBezierPath *path in paths) {
-                        BOOL pointContainsPath = CGPathContainsPoint(path.CGPath, NULL, p1, NO);
-                        if (pointContainsPath) {
-                            [_delegate userClickedOnLinePoint:touchPoint lineIndex:lineIndex];
-                            return;
+    if (_xLabels.count > 1) {
+        for (NSUInteger p = 0; p < _pathPoints.count; p++) {
+            NSArray *linePointsArray = _endPointsOfPath[p];
+            
+            for (NSUInteger i = 0; i < (int) linePointsArray.count - 1; i += 2) {
+                CGPoint p1 = [linePointsArray[i] CGPointValue];
+                CGPoint p2 = [linePointsArray[i + 1] CGPointValue];
+                
+                // Closest distance from point to line
+                float distance = (float) fabs(((p2.x - p1.x) * (touchPoint.y - p1.y)) - ((p1.x - touchPoint.x) * (p1.y - p2.y)));
+                distance /= hypot(p2.x - p1.x, p1.y - p2.y);
+                
+                if (distance <= 5.0) {
+                    // Conform to delegate parameters, figure out what bezier path this CGPoint belongs to.
+                    NSUInteger lineIndex = 0;
+                    for (NSArray<UIBezierPath *> *paths in _chartPath) {
+                        for (UIBezierPath *path in paths) {
+                            BOOL pointContainsPath = CGPathContainsPoint(path.CGPath, NULL, p1, NO);
+                            if (pointContainsPath) {
+                                [_delegate userClickedOnLinePoint:touchPoint lineIndex:lineIndex];
+                                return;
+                            }
                         }
+                        lineIndex++;
                     }
-                    lineIndex++;
                 }
             }
         }
