@@ -71,24 +71,43 @@
     }
 
     if (yStep == 0.0) {
-//        PNChartLabel *minLabel = [[PNChartLabel alloc] initWithFrame:CGRectMake(0.0, (NSInteger) _chartCavanHeight, (NSInteger) _chartMarginBottom, (NSInteger) _yLabelHeight)];
-//        minLabel.text = [self formatYLabel:0.0];
-//        [self setCustomStyleForYLabel:minLabel];
-//        [self addSubview:minLabel];
-//        [_yChartLabels addObject:minLabel];
-
-        PNChartLabel *midLabel = [[PNChartLabel alloc] initWithFrame:CGRectMake(0.0, (NSInteger) (_chartCavanHeight / 1.68), (NSInteger) _chartMarginBottom, (NSInteger) _yLabelHeight)];
-        midLabel.text = [self formatYLabel:_yValueMax];
-        [self setCustomStyleForYLabel:midLabel];
-        [self addSubview:midLabel];
-        [_yChartLabels addObject:midLabel];
-
-//        PNChartLabel *maxLabel = [[PNChartLabel alloc] initWithFrame:CGRectMake(0.0, 0.0, (NSInteger) _chartMarginBottom, (NSInteger) _yLabelHeight)];
-//        maxLabel.text = [self formatYLabel:_yValueMax * 2];
-//        [self setCustomStyleForYLabel:maxLabel];
-//        [self addSubview:maxLabel];
-//        [_yChartLabels addObject:maxLabel];
-
+        if (_yValueMax == _yValueMin) {
+            PNChartLabel *minLabel = [[PNChartLabel alloc] initWithFrame:CGRectMake(0.0, (NSInteger) _chartCavanHeight + _yLabelHeight * 2, (NSInteger) _chartMarginBottom, (NSInteger) _yLabelHeight)];
+            minLabel.text = [self formatYLabel:0.0];
+            [self setCustomStyleForYLabel:minLabel];
+            [self addSubview:minLabel];
+            [_yChartLabels addObject:minLabel];
+            if (_yValueMax == 0) {
+                PNChartLabel *midLabel = [[PNChartLabel alloc] initWithFrame:CGRectMake(0.0, (NSInteger) (_chartCavanHeight / 2), (NSInteger) _chartMarginBottom, (NSInteger) _yLabelHeight)];
+                midLabel.text = [self formatYLabel:1.0];
+                [self setCustomStyleForYLabel:midLabel];
+                [self addSubview:midLabel];
+                [_yChartLabels addObject:midLabel];
+            }else {
+                PNChartLabel *midLabel = [[PNChartLabel alloc] initWithFrame:CGRectMake(0.0, 0.0, (NSInteger) _chartMarginBottom, self.frame.size.height - _chartMarginBottom / 2)];
+                midLabel.numberOfLines = 1;
+                midLabel.text = [self formatYLabel:_yValueMax];
+                [self setCustomStyleForYLabel:midLabel];
+                [self addSubview:midLabel];
+                [_yChartLabels addObject:midLabel];
+            }
+        }else {
+            PNChartLabel *minLabel = [[PNChartLabel alloc] initWithFrame:CGRectMake(0.0, (NSInteger) _chartCavanHeight, (NSInteger) _chartMarginBottom, (NSInteger) _yLabelHeight)];
+            minLabel.text = [self formatYLabel:0.0];
+            [self setCustomStyleForYLabel:minLabel];
+            [self addSubview:minLabel];
+            [_yChartLabels addObject:minLabel];
+            PNChartLabel *midLabel = [[PNChartLabel alloc] initWithFrame:CGRectMake(0.0, (NSInteger) (_chartCavanHeight / 2), (NSInteger) _chartMarginBottom, (NSInteger) _yLabelHeight)];
+            midLabel.text = [self formatYLabel:_yValueMax];
+            [self setCustomStyleForYLabel:midLabel];
+            [self addSubview:midLabel];
+            [_yChartLabels addObject:midLabel];
+            PNChartLabel *maxLabel = [[PNChartLabel alloc] initWithFrame:CGRectMake(0.0, 0.0, (NSInteger) _chartMarginBottom, (NSInteger) _yLabelHeight)];
+            maxLabel.text = [self formatYLabel:_yValueMax * 2];
+            [self setCustomStyleForYLabel:maxLabel];
+            [self addSubview:maxLabel];
+            [_yChartLabels addObject:maxLabel];
+        }
     } else {
         NSInteger index = 0;
         NSInteger num = _yLabelNum + 1;
@@ -830,7 +849,11 @@ andProgressLinePathsColors:(NSMutableArray *)progressLinePathsColors {
 - (CGFloat)yValuePositionInLineChart:(CGFloat)y {
     CGFloat innerGrade;
     if (!(_yValueMax - _yValueMin)) {
-        innerGrade = 0.5;
+        if (_yValueMax == _yValueMin && _yValueMax == 0) {
+            innerGrade = 0;
+        }else {
+            innerGrade = 0.5;
+        }
     } else {
         innerGrade = ((CGFloat) y - _yValueMin) / (_yValueMax - _yValueMin);
     }
